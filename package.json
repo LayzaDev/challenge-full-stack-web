@@ -5,7 +5,8 @@
   "description": "+A Educação - Full Stack Web Developer ===================",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,13 @@
   },
   "homepage": "https://github.com/LayzaDev/challenge-full-stack-web#readme",
   "dependencies": {
+    "@prisma/client": "^5.18.0",
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "prisma": "^5.18.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }

@@ -1,4 +1,7 @@
 import express from "express";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const app = express(); // criando uma instância do Express
 
@@ -7,9 +10,16 @@ const users = []; // array para armazenar os usuários
 app.use(express.json()); // garante que o Express entenda o formato JSON
 
 // rota POST para criar os usuários
-app.post("/users", (request, response) => {
-  users.push(request.body); // adiciona os dados enviados pelo cliente no array "users"
-  response.status(201).send(); // envia uma resposta para o cliente: Sucesso, novo usuário criado!
+app.post("/users", async (request, response) => {
+  await prisma.user.create({
+    data: {
+      ra: request.body.ra,
+      cpf: request.body.cpf,
+      email: request.body.email,
+      name: request.body.name,
+    },
+  }); // adiciona os dados enviados pelo cliente no array "users"
+  response.status(201).json(request.body); // envia uma resposta para o cliente: Sucesso, novo usuário criado!
 });
 
 // rota GET para listar os usuários
