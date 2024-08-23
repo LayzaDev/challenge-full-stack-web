@@ -1,0 +1,24 @@
+{
+  "name": "challenge-full-stack-web",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "+A Educação - Full Stack Web Developer ===================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LayzaDev/challenge-full-stack-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LayzaDev/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/LayzaDev/challenge-full-stack-web#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
