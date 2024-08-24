@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="students"
+    :items="filteredStudents"
     :sort-by="[{ key: 'ra', order: 'asc' }]"
     style="width: 80vw; height: 400px"
   >
@@ -10,6 +10,12 @@
         <v-toolbar-title>Consulta de Alunos</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          label="Pesquisar"
+          single-line
+          hide-details
+        ></v-text-field>
         <v-dialog v-model="dialog" max-width="600px">
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2" color="primary" dark v-bind="props">
@@ -23,32 +29,60 @@
 
             <v-card-text>
               <v-container>
-                <v-row>
-                  <v-col cols="12" md="5" sm="6">
-                    <v-text-field
-                      v-model="editedItem.ra"
-                      label="RA"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="7" sm="6">
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Nome"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="5" sm="6">
-                    <v-text-field
-                      v-model="editedItem.cpf"
-                      label="CPF"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="7" sm="6">
-                    <v-text-field
-                      v-model="editedItem.email"
-                      label="E-mail"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                <v-form ref="form" v-model="formValid">
+                  <v-row>
+                    <v-col cols="12" md="5" sm="6">
+                      <v-text-field
+                        v-model="editedItem.ra"
+                        label="RA"
+                        required
+                        :rules="[(v) => !!v || 'RA é obrigatório']"
+                        :disabled="editedIndex > -1"
+                      >
+                        <template v-slot:label>
+                          RA <span style="color: red">*</span>
+                        </template></v-text-field
+                      >
+                    </v-col>
+                    <v-col cols="12" md="7" sm="6">
+                      <v-text-field
+                        v-model="editedItem.name"
+                        label="Nome"
+                        aria-required="true"
+                        :rules="[(v) => !!v || 'Nome é obrigatório']"
+                      >
+                        <template v-slot:label>
+                          Nome <span style="color: red">*</span>
+                        </template></v-text-field
+                      >
+                    </v-col>
+                    <v-col cols="12" md="5" sm="6">
+                      <v-text-field
+                        v-model="editedItem.cpf"
+                        label="CPF"
+                        required
+                        :rules="[(v) => !!v || 'CPF é obrigatório']"
+                        :disabled="editedIndex > -1"
+                      >
+                        <template v-slot:label>
+                          CPF <span style="color: red">*</span>
+                        </template></v-text-field
+                      >
+                    </v-col>
+                    <v-col cols="12" md="7" sm="6">
+                      <v-text-field
+                        v-model="editedItem.email"
+                        label="E-mail"
+                        required
+                        :rules="[(v) => !!v || 'E-mail é obrigatório']"
+                      >
+                        <template v-slot:label>
+                          E-mail <span style="color: red">*</span>
+                        </template></v-text-field
+                      >
+                    </v-col>
+                  </v-row>
+                </v-form>
               </v-container>
             </v-card-text>
 
@@ -57,7 +91,12 @@
               <v-btn color="blue-darken-1" variant="text" @click="close">
                 Cancelar
               </v-btn>
-              <v-btn color="blue-darken-1" variant="text" @click="save">
+              <v-btn
+                color="blue-darken-1"
+                variant="text"
+                :disabled="!formValid"
+                @click="save"
+              >
                 Salvar
               </v-btn>
             </v-card-actions>
@@ -110,6 +149,8 @@ export default {
   data: () => ({
     dialog: false,
     dialogDelete: false,
+    search: "",
+    formValid: false,
     headers: [
       {
         title: "Registro Acadêmico (RA)",
@@ -125,7 +166,6 @@ export default {
     students: [],
     editedIndex: -1,
     editedItem: {
-      ra: "",
       name: "",
       cpf: "",
       email: "",
@@ -143,6 +183,17 @@ export default {
       return this.editedIndex === -1
         ? "Cadastrar Aluno"
         : "Atualizar dados do aluno";
+    },
+    filteredStudents() {
+      return this.students.filter((student) => {
+        const searchTerm = this.search.toLowerCase();
+        return (
+          student.ra.toLowerCase().includes(searchTerm) ||
+          student.name.toLowerCase().includes(searchTerm) ||
+          student.cpf.toLowerCase().includes(searchTerm) ||
+          student.email.toLowerCase().includes(searchTerm)
+        );
+      });
     },
   },
 
@@ -202,18 +253,20 @@ export default {
     },
 
     save() {
-      if (this.editedIndex > -1) {
-        const student = this.editedItem;
-        const ra = student.ra;
-        studentService
-          .updateStudent(ra, student)
-          .then(() => this.fetchStudents());
-      } else {
-        studentService
-          .createStudent(this.editedItem)
-          .then(() => this.fetchStudents());
+      if (this.$refs.form.validate()) {
+        if (this.editedIndex > -1) {
+          const student = this.editedItem;
+          const ra = student.ra;
+          studentService
+            .updateStudent(ra, student)
+            .then(() => this.fetchStudents());
+        } else {
+          studentService
+            .createStudent(this.editedItem)
+            .then(() => this.fetchStudents());
+        }
+        this.close();
       }
-      this.close();
     },
   },
 };
