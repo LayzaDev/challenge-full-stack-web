@@ -28,6 +28,17 @@ app.get("/students", async (request, response) => {
   response.status(200).json(students); // Sucesso, tudo ok!
 });
 
+// rota GET para listar um estudante
+app.get("/students/:ra", async (request, response) => {
+  const ra = request.params.ra;
+  const students = await prisma.student.findUnique({
+    where: {
+      ra: ra,
+    },
+  });
+  response.status(200).json(students); // Sucesso, tudo ok!
+});
+
 // rota PUT para atualizar os dados dos estudantes
 app.put("/students/:ra", async (request, response) => {
   await prisma.student.update({
