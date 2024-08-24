@@ -16,11 +16,3 @@
 
 1. Realizar comentários
 2. Entregar desafio até 18:00
-
----
-
-Mongo DB
-
-username: GrupoA
-<br>
-password: desafio+A

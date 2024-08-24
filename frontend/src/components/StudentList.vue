@@ -3,13 +3,14 @@
     :headers="headers"
     :items="students"
     :sort-by="[{ key: 'ra', order: 'asc' }]"
+    style="width: 80vw; height: 400px"
   >
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>Consulta de Alunos</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="600px">
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2" color="primary" dark v-bind="props">
               Cadastrar aluno
@@ -73,7 +74,7 @@
                 >Cancelar</v-btn
               >
               <v-btn
-                color="blue-darken-1"
+                color="red-darken-1"
                 variant="text"
                 @click="deleteItemConfirm"
                 >Excluir</v-btn
@@ -85,10 +86,17 @@
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon color="warning" class="me-2" size="small" @click="editItem(item)">
+      <v-icon
+        color="blue-darken-1"
+        class="me-2"
+        size="small"
+        @click="editItem(item)"
+      >
         mdi-pencil
       </v-icon>
-      <v-icon size="small" @click="deleteItem(item)"> mdi-delete </v-icon>
+      <v-icon color="red-darken-1" size="small" @click="deleteItem(item)">
+        mdi-delete
+      </v-icon>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="initialize"> Reset </v-btn>
@@ -105,14 +113,14 @@ export default {
     headers: [
       {
         title: "Registro Acadêmico (RA)",
-        align: "start",
+        align: "center",
         sortable: false,
         key: "ra",
       },
-      { title: "Nome", key: "name" },
-      { title: "CPF", key: "cpf" },
-      { title: "E-mail", key: "email" },
-      { title: "Ações", key: "actions", sortable: false },
+      { title: "Nome", key: "name", align: "center" },
+      { title: "CPF", key: "cpf", align: "center" },
+      { title: "E-mail", key: "email", align: "center" },
+      { title: "Ações", key: "actions", align: "center", sortable: false },
     ],
     students: [],
     editedIndex: -1,
