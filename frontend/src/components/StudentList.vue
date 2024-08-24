@@ -259,13 +259,24 @@ export default {
           const ra = student.ra;
           studentService
             .updateStudent(ra, student)
-            .then(() => this.fetchStudents());
+            .then(() => {
+              this.fetchStudents();
+              this.close();
+            })
+            .catch((error) =>
+              alert(`Erro ao atualizar o estudante: ${error.response.data}`)
+            );
         } else {
           studentService
             .createStudent(this.editedItem)
-            .then(() => this.fetchStudents());
+            .then(() => {
+              this.fetchStudents();
+              this.close();
+            })
+            .catch((error) =>
+              alert(`Erro ao criar o estudante: ${error.response.data}`)
+            );
         }
-        this.close();
       }
     },
   },
