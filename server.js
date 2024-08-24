@@ -1,40 +1,59 @@
-import express from "express";
+import express, { response } from "express";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const app = express(); // criando uma instância do Express
+// criando uma instância do Express
+const app = express();
 
-const users = []; // array para armazenar os usuários
+// garante que o Express entenda o formato JSON
+app.use(express.json());
 
-app.use(express.json()); // garante que o Express entenda o formato JSON
-
-// rota POST para criar os usuários
-app.post("/users", async (request, response) => {
-  await prisma.user.create({
+// rota POST para criar os estudantes
+app.post("/students", async (request, response) => {
+  await prisma.student.create({
     data: {
       ra: request.body.ra,
       cpf: request.body.cpf,
       email: request.body.email,
       name: request.body.name,
     },
-  }); // adiciona os dados enviados pelo cliente no array "users"
-  response.status(201).json(request.body); // envia uma resposta para o cliente: Sucesso, novo usuário criado!
+  });
+  response.status(201).json(request.body);
 });
 
-// rota GET para listar os usuários
-app.get("/users", (request, response) => {
-  response.status(200).json(users); // Sucesso, tudo ok!
+// rota GET para listar todos os estudantes
+app.get("/students", async (request, response) => {
+  const students = await prisma.student.findMany();
+  response.status(200).json(students); // Sucesso, tudo ok!
+});
+
+// rota PUT para atualizar os dados dos estudantes
+app.put("/students/:ra", async (request, response) => {
+  await prisma.student.update({
+    where: {
+      ra: request.params.ra,
+    },
+    data: {
+      cpf: request.body.cpf,
+      email: request.body.email,
+      name: request.body.name,
+    },
+  });
+  response.status(201).json(request.body);
+});
+
+// rota DELETE para deletar estudantes
+app.delete("/students/:ra", async (request, response) => {
+  await prisma.student.delete({
+    where: {
+      ra: request.params.ra,
+    },
+  });
+  response.status(201).json({ message: "Estudante deletado com sucesso!" });
 });
 
 // iniciando o servidor na porta 3000
 app.listen(3000, () => {
   console.log("Servidor rodando na porta 3000.");
 });
-
-/*
-  Mongo DB
-
-  username: GrupoA
-  password: desafio+A
-*/

@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Student {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   ra      String   @unique
   cpf     String   @unique
