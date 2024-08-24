@@ -1,11 +1,12 @@
 import express, { response } from "express";
 import { PrismaClient } from "@prisma/client";
+import cors from "cors";
 
 const prisma = new PrismaClient();
 
 // criando uma instância do Express
 const app = express();
-
+app.use(cors());
 // garante que o Express entenda o formato JSON
 app.use(express.json());
 

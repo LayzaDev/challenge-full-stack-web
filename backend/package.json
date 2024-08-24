@@ -21,6 +21,7 @@
   "homepage": "https://github.com/LayzaDev/challenge-full-stack-web#readme",
   "dependencies": {
     "@prisma/client": "^5.18.0",
+    "cors": "^2.8.5",
     "express": "^4.19.2"
   },
   "devDependencies": {
