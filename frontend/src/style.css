@@ -52,15 +52,42 @@ button {
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.v-toolbar__content {
+  background-color: #e54a64;
+  color: #ffffff;
 }
 
 .card {
   padding: 2em;
 }
 
+.v-card-title {
+  margin-top: 2%;
+}
+
+.v-card-actions {
+  display: flex;
+  margin: 0 auto 2%;
+}
+
+.text-h5 {
+  color: #e02242;
+  padding-left: 4%;
+}
+
+.v-field__input {
+  background-color: #ffff;
+}
+
+.search-input {
+  background-color: #0000;
+}
 #app {
   max-width: 1280px;
   margin: 0 auto;

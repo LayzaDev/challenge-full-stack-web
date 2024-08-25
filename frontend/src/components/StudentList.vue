@@ -15,12 +15,11 @@
           label="Pesquisar"
           single-line
           hide-details
+          class="search-input"
         ></v-text-field>
-        <v-dialog v-model="dialog" max-width="600px">
+        <v-dialog v-model="dialog" max-width="900px">
           <template v-slot:activator="{ props }">
-            <v-btn class="mb-2" color="primary" dark v-bind="props">
-              Cadastrar aluno
-            </v-btn>
+            <v-btn class="mb-2" dark v-bind="props"> Cadastrar aluno </v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -52,9 +51,10 @@
                         :rules="[(v) => !!v || 'Nome é obrigatório']"
                       >
                         <template v-slot:label>
-                          Nome <span style="color: red">*</span>
-                        </template></v-text-field
-                      >
+                          Nome
+                          <span style="color: red">*</span>
+                        </template>
+                      </v-text-field>
                     </v-col>
                     <v-col cols="12" md="5" sm="6">
                       <v-text-field
@@ -66,8 +66,8 @@
                       >
                         <template v-slot:label>
                           CPF <span style="color: red">*</span>
-                        </template></v-text-field
-                      >
+                        </template>
+                      </v-text-field>
                     </v-col>
                     <v-col cols="12" md="7" sm="6">
                       <v-text-field
@@ -78,8 +78,8 @@
                       >
                         <template v-slot:label>
                           E-mail <span style="color: red">*</span>
-                        </template></v-text-field
-                      >
+                        </template>
+                      </v-text-field>
                     </v-col>
                   </v-row>
                 </v-form>
@@ -102,9 +102,9 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h6"
+        <v-dialog v-model="dialogDelete" max-width="480px">
+          <v-card style="padding: 2%">
+            <v-card-title class="text-h6" style="padding: 5%"
               >Tem certeza de que deseja excluir este item?</v-card-title
             >
             <v-card-actions>
