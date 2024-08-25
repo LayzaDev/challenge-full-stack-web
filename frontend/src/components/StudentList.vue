@@ -232,7 +232,15 @@ export default {
     deleteItemConfirm() {
       const student = this.editedItem;
       const ra = student.ra;
-      studentService.deleteStudent(ra).then(() => this.fetchStudents());
+      studentService
+        .deleteStudent(ra)
+        .then((response) => {
+          this.fetchStudents();
+          alert(`${response.data}`);
+        })
+        .catch((error) => {
+          alert(`Erro ao deletar o estudante: ${error.response.data}`);
+        });
       this.closeDelete();
     },
 
@@ -259,9 +267,10 @@ export default {
           const ra = student.ra;
           studentService
             .updateStudent(ra, student)
-            .then(() => {
+            .then((response) => {
               this.fetchStudents();
               this.close();
+              alert(`${response.data}`);
             })
             .catch((error) =>
               alert(`Erro ao atualizar o estudante: ${error.response.data}`)
@@ -269,9 +278,10 @@ export default {
         } else {
           studentService
             .createStudent(this.editedItem)
-            .then(() => {
+            .then((response) => {
               this.fetchStudents();
               this.close();
+              alert(`${response.data}`);
             })
             .catch((error) =>
               alert(`Erro ao criar o estudante: ${error.response.data}`)
