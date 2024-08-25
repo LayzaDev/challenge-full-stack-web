@@ -3,10 +3,10 @@
     :headers="headers"
     :items="filteredStudents"
     :sort-by="[{ key: 'ra', order: 'asc' }]"
-    style="width: 80vw; height: 80vh"
+    style="width: 100vw; height: 84vh"
   >
     <template v-slot:top>
-      <v-toolbar flat>
+      <v-toolbar flat style="background-color: #00acb4">
         <v-toolbar-title>Consulta de Alunos</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
@@ -17,7 +17,7 @@
           hide-details
           class="search-input"
         ></v-text-field>
-        <v-dialog v-model="dialog" max-width="900px">
+        <v-dialog v-model="dialog" max-width="800px">
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2" dark v-bind="props"> Cadastrar aluno </v-btn>
           </template>
@@ -102,7 +102,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="480px">
+        <v-dialog v-model="dialogDelete" max-width="500px">
           <v-card style="padding: 2%">
             <v-card-title class="text-h6" style="padding: 5%"
               >Tem certeza de que deseja excluir este item?</v-card-title
