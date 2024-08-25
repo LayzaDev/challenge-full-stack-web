@@ -3,7 +3,7 @@
     :headers="headers"
     :items="filteredStudents"
     :sort-by="[{ key: 'ra', order: 'asc' }]"
-    style="width: 80vw; height: 400px"
+    style="width: 80vw; height: 80vh"
   >
     <template v-slot:top>
       <v-toolbar flat>

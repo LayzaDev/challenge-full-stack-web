@@ -1,9 +1,7 @@
-<script setup>
-import StudentList from "./components/StudentList.vue";
-</script>
+<script setup></script>
 
 <template>
-  <StudentList />
+  <router-view />
 </template>
 
 <style scoped>
