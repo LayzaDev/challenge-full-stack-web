@@ -28,10 +28,10 @@ export const createStudent = async (request, response) => {
         .status(400)
         .json(`Este ${field} já está cadastrado no sistema.`);
     }
-    const studentCreated = await prisma.student.create({
+    await prisma.student.create({
       data: { ra: ra, cpf: cpf, email: email, name: name },
     });
-    return response.status(201).json(studentCreated);
+    return response.status(201).json("Estudante criado com sucesso.");
   } catch (error) {
     return response.status(500).json(error);
   }
@@ -97,13 +97,13 @@ export const updateStudent = async (request, response) => {
           .json("Já existe um estudante com esse e-mail.");
       }
     }
-    const studentUpdated = await prisma.student.update({
+    await prisma.student.update({
       where: {
         ra: ra,
       },
       data: { email: email, name: name },
     });
-    return response.status(201).json(studentUpdated);
+    return response.status(201).json("Estudante atualizado com sucesso.");
   } catch (error) {
     return response.status(500).json(error);
   }
