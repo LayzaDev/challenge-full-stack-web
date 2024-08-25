@@ -4,32 +4,23 @@ const prisma = new PrismaClient();
 
 export const createStudent = async (request, response) => {
   try {
-    const student = {
-      ra: request.body.ra,
-      cpf: request.body.cpf,
-      email: request.body.email,
-      name: request.body.name,
-    };
+    const { ra, cpf, email, name } = request.body;
 
-    if (!student.ra || !student.cpf || !student.email || !student.name) {
+    if (!ra || !cpf || !email || !name) {
       return response.status(400).json("Todos os campos são obrigatórios.");
     }
 
     const existingStudent = await prisma.student.findFirst({
       where: {
-        OR: [
-          { ra: student.ra },
-          { cpf: student.cpf },
-          { email: student.email },
-        ],
+        OR: [{ ra: ra }, { cpf: cpf }, { email: email }],
       },
     });
 
     if (existingStudent) {
       const field =
-        existingStudent.ra === student.ra
+        existingStudent.ra === ra
           ? "RA"
-          : existingStudent.cpf === student.cpf
+          : existingStudent.cpf === cpf
           ? "CPF"
           : "E-mail";
 
@@ -38,7 +29,7 @@ export const createStudent = async (request, response) => {
         .json(`Este ${field} já está cadastrado no sistema.`);
     }
     const studentCreated = await prisma.student.create({
-      data: student,
+      data: { ra: ra, cpf: cpf, email: email, name: name },
     });
     return response.status(201).json(studentCreated);
   } catch (error) {
@@ -57,7 +48,7 @@ export const getStudents = async (request, response) => {
 
 export const getStudent = async (request, response) => {
   try {
-    const ra = request.params.ra;
+    const { ra } = request.params;
     const students = await prisma.student.findUnique({
       where: {
         ra: ra,
@@ -71,18 +62,16 @@ export const getStudent = async (request, response) => {
 
 export const updateStudent = async (request, response) => {
   try {
-    const data = {
-      email: request.body.email,
-      name: request.body.name,
-    };
+    const { email, name } = request.body;
+    const { ra } = request.params;
 
-    if (!data.email || !data.name) {
+    if (!email || !name) {
       return response.status(400).json("Todos os campos são obrigatórios.");
     }
 
     const studentSavedInDataBase = await prisma.student.findFirst({
       where: {
-        ra: request.params.ra,
+        ra: ra,
       },
     });
 
@@ -92,7 +81,7 @@ export const updateStudent = async (request, response) => {
 
     const previousEmail = studentSavedInDataBase.email;
 
-    const newEmail = data.email;
+    const newEmail = email;
 
     const emailChanged = previousEmail != newEmail;
     if (emailChanged) {
@@ -110,9 +99,9 @@ export const updateStudent = async (request, response) => {
     }
     const studentUpdated = await prisma.student.update({
       where: {
-        ra: request.params.ra,
+        ra: ra,
       },
-      data: data,
+      data: { email: email, name: name },
     });
     return response.status(201).json(studentUpdated);
   } catch (error) {
@@ -121,12 +110,23 @@ export const updateStudent = async (request, response) => {
 };
 
 export const deleteStudent = async (request, response) => {
-  await prisma.student.delete({
-    where: {
-      ra: request.params.ra,
-    },
-  });
-  return response
-    .status(204)
-    .json({ message: "Estudante deletado com sucesso!" });
+  try {
+    const { ra } = request.params;
+
+    const studentExists = await prisma.student.findFirst({ where: { ra: ra } });
+
+    if (!studentExists) {
+      return response.status(404).json("Estudante não encontrado.");
+    }
+
+    await prisma.student.delete({
+      where: {
+        ra: ra,
+      },
+    });
+
+    return response.status(200).json("Estudante deletado com sucesso!");
+  } catch (error) {
+    return response.status(500).json(error);
+  }
 };
