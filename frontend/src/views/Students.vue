@@ -3,13 +3,12 @@
     :headers="headers"
     :items="filteredStudents"
     :sort-by="[{ key: 'ra', order: 'asc' }]"
-    style="width: 100vw; height: 84vh"
+    style="width: 100vw; height: 85vh"
   >
     <template v-slot:top>
       <v-toolbar flat style="background-color: #00acb4">
         <v-toolbar-title>Consulta de Alunos</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
-        <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
           label="Pesquisar"
@@ -17,6 +16,7 @@
           hide-details
           class="search-input"
         ></v-text-field>
+        <v-divider class="mx-4" inset vertical></v-divider>
         <v-dialog v-model="dialog" max-width="800px">
           <template v-slot:activator="{ props }">
             <v-btn class="mb-2" dark v-bind="props"> Cadastrar aluno </v-btn>
