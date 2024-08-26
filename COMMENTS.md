@@ -56,7 +56,9 @@ permitindo criar interfaces mais bonitas e responsivas.
 
 ## Quais requisitos obrigatórios que não foram entregues?
 
-- Creio que todos os requisitos foram entregues.
+- Creio que apenas as validações de formato dos dados inseridos nos campos não foram entregues.
+
+_Ex: Obrigatório seguir essa formatação para o CPF -> 000.000.000-00 e essa para o e-mail -> user@gmail.com_
 
 ## Passo a Passo para o rodar o projeto
 
