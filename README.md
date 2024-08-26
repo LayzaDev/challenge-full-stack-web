@@ -55,14 +55,14 @@ A seguir, são apresentados alguns mockups de interface como um guia para a cria
 - **Então** cria o novo aluno na base
 - **E** retorna mensagem de sucesso
 
-[ok] ####
+####
 
 - **Dado** que inseri dados válidos nos campos
 - **Quando** clico em Cancelar
 - **Então** retorna para tela Consulta de Alunos
 - **E** não persiste a gravação dos dados no banco
 
-[ok] #### Cenário: Listar alunos cadastrados
+#### Cenário: Listar alunos cadastrados
 
 - **Dado** que estou no Módulo Acadêmico
 - **Quando** clico no menu Alunos
@@ -80,32 +80,32 @@ A seguir, são apresentados alguns mockups de interface como um guia para a cria
 - **E** exibe os campos do cadastro preenchidos
 - **E** habilita alteração dos campos editáveis
 
-[ok] ####
+####
 
 - **Dado** que estou na tela de Cadastro do Aluno
 - **Quando** clica em Salvar
 - **Então** grava os dados editáveis na base
 
-[ok] ####
+####
 
 - **Dado** que estou na tela de Cadastro do Aluno
 - **Quando** clica em Cancelar
 - **Então** retorna para a tela de Consulta de Alunos
 - **E** não persiste a gravação dos dados
 
-[ok] #### Cenário: Excluir cadastro de aluno
+#### Cenário: Excluir cadastro de aluno
 
 - **Dado** que estou na listagem de alunos
 - **Quando** clico em Excluir aluno
 - **Então** exibe a modal de confirmação de exclusão
 
-[ok] ####
+####
 
 - **Dado** que estou na modal de confirmação de exclusão
 - **Quando** clico em Confirmar
 - **Então** então exclui o registro do aluno
 
-[ok] ####
+####
 
 - **Dado** que estou na modal de confirmação de exclusão
 - **Quando** clico em Cancelar
