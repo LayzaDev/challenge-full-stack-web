@@ -41,8 +41,6 @@ permitindo criar interfaces mais bonitas e responsivas.
 
 **Axios:** Ferramenta HTTP para realizar requisições assíncronas.
 
-**Cors (Compartilhamento de Recursos de Origem Cruzada):** Informa aos navegadores se um determinado recurso pode ou não ser acessado.
-
 ### Banco de Dados
 
 **MySQL:** Sistema de gerenciamento de banco de dados relacional.
