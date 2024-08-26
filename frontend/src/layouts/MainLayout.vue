@@ -1,7 +1,7 @@
 <!-- src/layouts/AppLayout.vue -->
 <template>
   <v-layout ref="app" class="rounded rounded-md">
-    <v-app-bar color="#d91f3d" name="app-bar">
+    <v-app-bar color="#000000" name="app-bar">
       <child v-slot="{ print }">
         <v-btn class="mx-auto" @click="print('app-bar')" style="font-size: 2em"
           >Grupo A</v-btn
@@ -9,10 +9,15 @@
       </child>
     </v-app-bar>
 
-    <v-navigation-drawer name="drawer" style="background-color: #edecec">
+    <v-navigation-drawer name="drawer" style="background-color: #1b1b1b">
       <div class="d-flex justify-center align-start h-100">
         <v-toolbar-title
-          style="background-color: #00acb4; color: #fff; padding: 2%"
+          style="
+            background-color: #5a5a5a;
+            color: #ffffff;
+            padding: 15px;
+            text-align: left;
+          "
           >Alunos</v-toolbar-title
         >
       </div>

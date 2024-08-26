@@ -81,7 +81,7 @@ button:focus-visible {
 }
 
 .text-h5 {
-  color: #e02242;
+  color: #000000;
   padding-left: 4%;
 }
 
@@ -94,7 +94,7 @@ button:focus-visible {
 }
 
 #input-1:focus {
-  background-color: #00acb4;
+  background-color: #0000;
 }
 
 #app {

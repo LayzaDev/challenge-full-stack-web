@@ -6,7 +6,7 @@
     style="width: 100vw; height: 85vh"
   >
     <template v-slot:top>
-      <v-toolbar flat style="background-color: #00acb4">
+      <v-toolbar flat style="background-color: #000000">
         <v-toolbar-title>Consulta de Alunos</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-text-field
@@ -212,9 +212,14 @@ export default {
 
   methods: {
     fetchStudents() {
-      studentService.getStudents().then((response) => {
-        this.students = response.data;
-      });
+      studentService
+        .getStudents()
+        .then((response) => {
+          this.students = response.data;
+        })
+        .catch((error) => {
+          alert("Erro ao listar estudandes: " + error);
+        });
     },
 
     editItem(item) {
